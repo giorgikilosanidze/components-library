@@ -1,3 +1,7 @@
 import './style.css';
+import Form from './components/form';
 
-console.log('components-library');
+new Form({
+	dateInput: { label: 'Birth Date', classNames: [], order: 2 },
+	textInput: { label: 'Email', classNames: [], order: 1 },
+});
