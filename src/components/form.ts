@@ -19,16 +19,16 @@ type FormConfig = {
 export default class Form {
 	form = document.createElement('form');
 	config: FormConfig;
+	readonly cities = ['Tbilisi', 'Batumi', 'Kutaisi', 'Gori', 'Telavi'];
 
 	constructor(config: FormConfig) {
 		this.config = config;
-		this.formHandler();
 
 		this.config = Object.fromEntries(
 			Object.entries(config).sort(([, a], [, b]) => a.order - b.order)
 		) as FormConfig;
 
-		console.log(this.config);
+		this.formHandler();
 
 		Object.keys(this.config).forEach((key) => {
 			if (typeof (this as any)[key] === 'function') {
@@ -59,6 +59,10 @@ export default class Form {
 		textInput.type = 'text';
 		textInput.id = 'text-input';
 
+		this.config.textInput?.classNames.forEach((className) => {
+			textInput.classList.add(className);
+		});
+
 		if (this.config.textInput?.label) {
 			const label = document.createElement('label');
 			label.htmlFor = textInput.id;
@@ -79,6 +83,10 @@ export default class Form {
 
 		numberInput.type = 'number';
 		numberInput.id = 'number-input';
+
+		this.config.numberInput?.classNames.forEach((className) => {
+			numberInput.classList.add(className);
+		});
 
 		if (this.config.numberInput?.label) {
 			const label = document.createElement('label');
@@ -101,6 +109,10 @@ export default class Form {
 		passwordInput.type = 'password';
 		passwordInput.id = 'password-input';
 
+		this.config.passwordInput?.classNames.forEach((className) => {
+			passwordInput.classList.add(className);
+		});
+
 		if (this.config.passwordInput?.label) {
 			const label = document.createElement('label');
 			label.htmlFor = passwordInput.id;
@@ -122,6 +134,10 @@ export default class Form {
 		dateInput.type = 'date';
 		dateInput.id = 'date-input';
 
+		this.config.dateInput?.classNames.forEach((className) => {
+			dateInput.classList.add(className);
+		});
+
 		if (this.config.dateInput?.label) {
 			const label = document.createElement('label');
 			label.htmlFor = dateInput.id;
@@ -141,6 +157,10 @@ export default class Form {
 		wrapper.classList.add('wrapper');
 		textarea.id = 'textarea';
 
+		this.config.textarea?.classNames.forEach((className) => {
+			textarea.classList.add(className);
+		});
+
 		if (this.config.textarea?.label) {
 			const label = document.createElement('label');
 			label.htmlFor = textarea.id;
@@ -156,6 +176,16 @@ export default class Form {
 		const wrapper = document.createElement('div');
 		const select = document.createElement('select');
 		const contentWrapper = this.form.querySelector('#content-wrapper')!;
+
+		this.config.select?.classNames.forEach((className) => {
+			select.classList.add(className);
+		});
+
+		this.cities.forEach((city) => {
+			const option = document.createElement('option');
+			option.textContent = city;
+			select.appendChild(option);
+		});
 
 		wrapper.classList.add('wrapper');
 		select.id = 'select';
@@ -176,6 +206,10 @@ export default class Form {
 		const contentWrapper = this.form.querySelector('#content-wrapper')!;
 
 		submitBtn.type = 'submit';
+
+		this.config.submitBtn?.classNames.forEach((className) => {
+			submitBtn.classList.add(className);
+		});
 
 		submitBtn.textContent = this.config.submitBtn?.label
 			? this.config.submitBtn.label
