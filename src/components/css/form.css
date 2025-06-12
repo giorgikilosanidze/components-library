@@ -10,7 +10,7 @@ form {
 	display: flex;
 	flex-direction: column;
 	align-items: start;
-	gap: 8px;
+	gap: 16px;
 }
 
 .wrapper {
@@ -18,4 +18,9 @@ form {
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
+}
+
+button {
+	margin-inline: auto;
+	margin-top: 8px;
 }
